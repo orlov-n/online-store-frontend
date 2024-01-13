@@ -1,0 +1,10 @@
+.movie-card-box {
+    height: 200px;
+    width: 650px;
+    display: flex;
+}
+
+img {
+object-fit: contain;
+
+}
