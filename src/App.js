@@ -4,6 +4,8 @@ import {fetchData} from './ApiCalls'
 import {Nav} from './Components/Nav/Nav'
 import { useEffect, useState } from 'react';
 import { CardContainer } from './Components/CardContainer/CardContainer';
+import { Route, Routes } from 'react-router-dom';
+
 
 
 export const App = () => {
@@ -24,12 +26,24 @@ export const App = () => {
 
 
   return (
+    
     <>
-     <Nav />
-     {/* {!movies.length ? <p>loading....</p> : <p>{movies[0].title}</p>}
-    <h1>Hello World!</h1> */}
-    <CardContainer movies={movies} />
-    </>
+    <Nav />
+    <Routes>
+      <Route path="/" element={
+       <CardContainer movies={movies} />
+       
+      }/>
+      {/* <Route path='/Art' element={<Art/>} />
+      <Route path='/Projects' element={<Projects/>} />
+      <Route path='/Blog' element={<Blog/>} />
+      <Route path='/Placeholder' element={<Placeholder/>} />
+      <Route path='/Placeholder2' element={<Placeholder2/>} /> */}
+
+</Routes>
+      </> 
+
+    
   )
 }
 

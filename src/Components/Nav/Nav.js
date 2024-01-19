@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './Nav.css'
 import { art, blog, projects, placeHolder, placeHolder2 } from '../../data/data'
+import { Link } from 'react-router-dom'
 
 export const Nav = () => {
     // a hook responsible for monitoring if the user is pointing at the target.
@@ -11,18 +12,9 @@ export const Nav = () => {
 
     // receives the event object after the user hovers over the Nav top item, flips the useState (hover) to opposite, and changes the value in the (navButtonValue) hook to the inner text of the event object.
     const turnModalOn = (e) => {
-       
         setHover(true)
-        
         console.log(e.target.innerText);
         setNavButtonValue(e.target.innerText)
-
-        // if (hover) {
-
-        //     setNavButtonValue(e.target.innerText)
-        // } else {
-        //     setNavButtonValue('')
-        // }
     }
 
     const turnModalOff = () => {
@@ -30,11 +22,12 @@ export const Nav = () => {
     }
 
     // gets triggered when modal is activated.  Gets passed the array which is the value of the modalDescriptor object's property which is compared to the inner text of the Nav item using bracket notation.
-    const renderModalItems = (modalArray) => {
+    const renderModalItems = (modalArray, navButtonValue) => {
       return modalArray.map((item, index) => {
         return (
             <div key={index}>
-                <p>{item}</p>
+                            <Link to={`/${navButtonValue}/${item}`}>{item}</Link>
+
             </div>
         )
        })
@@ -57,8 +50,14 @@ export const Nav = () => {
         {/* this returns the items in the nav bar.  If user hovers over the item (onMouseEnter) it triggers the (changeHover and passes the event object to that function) */}
      <div className='nav-container'>
         <div>
+            <Link to='/'>HOME</Link>
+        </div>
+        <div>
            <ul className="nav-list" >
-            <li className='top-menu-nav-list-item'  onMouseEnter={(e)=> turnModalOn(e)}>Art</li>
+            <li className='top-menu-nav-list-item'  onMouseEnter={(e)=> turnModalOn(e)}>
+            <Link to='/Art'>Art</Link>
+
+            </li>
             <li className='top-menu-nav-list-item'  onMouseEnter={(e)=> turnModalOn(e)}>Projects</li>
             <li className='top-menu-nav-list-item'  onMouseEnter={(e)=> turnModalOn(e)}>Blog</li>
             <li className='top-menu-nav-list-item'  onMouseEnter={(e)=> turnModalOn(e)}>Placeholder</li>
@@ -75,7 +74,7 @@ export const Nav = () => {
          */}
         {hover  && (
             <div className={'dropdown-menu-center'} onMouseLeave={turnModalOff}>
-         {renderModalItems(modalDescriptor[navButtonValue])}
+         {renderModalItems(modalDescriptor[navButtonValue], navButtonValue)}
         </div> )}
     </div>    
         </>
